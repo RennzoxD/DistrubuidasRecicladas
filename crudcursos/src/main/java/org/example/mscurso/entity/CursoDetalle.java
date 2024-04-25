@@ -18,8 +18,15 @@ public class CursoDetalle {
     private Profesores profesores;
 
     public CursoDetalle(){
-    this.duracionHoras = (double) 0;
-    this.precio = (double) 0;
+        this.duracionHoras = 0.0;
+        this.precio = 0.0;
+    }
+    public Profesores getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(Profesores profesores) {
+        this.profesores = profesores;
     }
 
 }

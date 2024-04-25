@@ -21,7 +21,7 @@ public class CursoServiceImpl implements CursoService {
     private CursoRepository cursoRepository;
 
     @Autowired
-    private AlumnoFeign alumnoFeing;
+    private AlumnoFeign alumnoFeign;
 
     @Autowired
     private ProfesoresFeign profesoresFeign;
@@ -38,16 +38,16 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public Optional<Curso> buscarPorId(Integer id) {
-        Curso curso = cursoRepository.findById(id).get();
-        Alumno alumno = AlumnoFeign.listById(Alumno.getAlumnoId()).getBody();
-        List<CursoDetalle> cursoDetalles = curso.getDetalles().stream().map(cursoDetalle -> {
-            Profesores profesores = profesoresFeign.listById(CursoDetalle.getProfesorId()).getBody();
-            cursoDetalle.setProfesores(profesores);
-            return cursoDetalle;
-        }).collect(Collectors.toList());
-        curso.setDetalles(cursoDetalles);
-        curso.setCurso(curso);
-        return Optional.of(curso);
+        Curso curso = cursoRepository.findById(id).orElse(null);
+        if (curso != null) {
+            List<CursoDetalle> cursoDetalles = curso.getDetalles().stream().map(cursoDetalle -> {
+                Profesores profesores = profesoresFeign.listById(cursoDetalle.getProfesores().getId()).getBody();
+                cursoDetalle.setProfesores(profesores);
+                return cursoDetalle;
+            }).collect(Collectors.toList());
+            curso.setDetalles(cursoDetalles);
+        }
+        return Optional.ofNullable(curso);
     }
 
     @Override

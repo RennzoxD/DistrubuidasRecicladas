@@ -13,16 +13,18 @@ import java.util.List;
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Transient
     private Long id;
     private String nombre;
     private String descripcion;
+    private double precio;
     private int duracion;
     @JsonIgnoreProperties({"hebernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "curso_id")
-    private List<CursoDetalle> detalles;
-    @Transient
-    private Curso curso;
+
+
+
 
 
 }
