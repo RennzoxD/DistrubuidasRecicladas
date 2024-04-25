@@ -24,7 +24,6 @@ public class CursoDetalle {
     public Profesores getProfesores() {
         return profesores;
     }
-
     public void setProfesores(Profesores profesores) {
         this.profesores = profesores;
     }
