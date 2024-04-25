@@ -14,18 +14,13 @@ public class CursoDetalle {
     private String descripcion;
     private double precio;
     private double duracionHoras;
-    @Transient
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profesores_id")
     private Profesores profesores;
 
-    public CursoDetalle(){
-        this.duracionHoras = 0.0;
-        this.precio = 0.0;
+    public CursoDetalle() {
+        this.duracionHoras = 0;
+        this.precio = 0;
     }
-    public Profesores getProfesores() {
-        return profesores;
-    }
-    public void setProfesores(Profesores profesores) {
-        this.profesores = profesores;
-    }
-
 }

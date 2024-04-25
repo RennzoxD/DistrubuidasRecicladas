@@ -17,13 +17,12 @@ public class Curso {
     private String nombre;
     private String descripcion;
     private int duracion;
-    private double precio;
-    @JsonIgnoreProperties({"hebernateLazyInitializer", "handler"})
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "curso_id")
+
+    @JsonIgnoreProperties({"curso"})
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CursoDetalle> detalles;
+
     @Transient
     private Curso curso;
-
 
 }
