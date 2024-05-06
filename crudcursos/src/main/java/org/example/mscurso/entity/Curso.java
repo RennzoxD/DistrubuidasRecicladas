@@ -1,28 +1,28 @@
 package org.example.mscurso.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.mscurso.dto.ProfesoresDto;
 
 import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombre;
-    private String descripcion;
-    private int duracion;
+    private Integer id;
 
-    @JsonIgnoreProperties({"curso"})
-    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CursoDetalle> detalles;
+    private String nombre;
+
+    private String descripcion;
+
+    private String duracion;
+
+    private Integer ProfesorId;
 
     @Transient
-    private Curso curso;
-
+    private ProfesoresDto profesoresDto;
 }
+

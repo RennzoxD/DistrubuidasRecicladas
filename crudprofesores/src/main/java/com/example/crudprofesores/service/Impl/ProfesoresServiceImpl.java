@@ -1,12 +1,16 @@
 package com.example.crudprofesores.service.Impl;
 
+import com.example.crudprofesores.dto.CursoDto;
 import com.example.crudprofesores.entity.Profesores;
+import com.example.crudprofesores.feign.CursoFeign;
 import com.example.crudprofesores.repository.ProfesoresRepository;
 import com.example.crudprofesores.service.ProfesoresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfesoresServiceImpl implements ProfesoresService {
@@ -14,8 +18,12 @@ public class ProfesoresServiceImpl implements ProfesoresService {
     @Autowired
     private ProfesoresRepository profesoresRepository;
 
+    @Autowired
+    private CursoFeign cursoFeign;
+
+
     @Override
-    public List<Profesores> listar(){
+    public List<Profesores> listar() {
         return profesoresRepository.findAll();
     }
     @Override
@@ -25,7 +33,8 @@ public class ProfesoresServiceImpl implements ProfesoresService {
 
     @Override
     public Profesores buscarPorId(Integer id) {
-        return profesoresRepository.findById(id).get();
+        Profesores profesores = profesoresRepository.findById(id).get();
+        return profesores;
     }
 
     @Override
